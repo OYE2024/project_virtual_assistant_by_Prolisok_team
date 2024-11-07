@@ -1,0 +1,12 @@
+README.md
+setup.py
+src/bot_v2/__init__.py
+src/bot_v2/main.py
+src/bot_v2.egg-info/PKG-INFO
+src/bot_v2.egg-info/SOURCES.txt
+src/bot_v2.egg-info/dependency_links.txt
+src/bot_v2.egg-info/entry_points.txt
+src/bot_v2.egg-info/top_level.txt
+src/bot_v2/modules/__init__.py
+src/bot_v2/modules/address_book.py
+src/bot_v2/modules/basic_functions.py

@@ -1,12 +1,14 @@
-
 import pickle
-from packages import AddressBook, Record, Phone, Birthday, Email
+from bot_v2.modules.address_book import AddressBook
+from bot_v2.modules.address_book import Record
+from bot_v2.modules.address_book import Phone
+from bot_v2.modules.address_book import Birthday
+from bot_v2.modules.address_book import Email
 
 
 def all_book(User_book: AddressBook) -> str:
     """
-    Функція виведення контактів,
-    читає всю книгу контактів
+    Функція виведення контактів, читає всю книгу контактів
     """
     for b in User_book.data:
         print(b, User_book[b])
@@ -16,11 +18,11 @@ def add_user_book(addUser, User_book: AddressBook) -> str:
     """
     Функція додавання користувача до Address_Book
     """
-    u = "".join(addUser)  # Додаю ім'я зі списку до рядка
-    if u:  # Роблю перевірку на пусте значення
-        rec = Record(u)  # Створюю об'єкт класу Record
+    aub = "".join(addUser)  # Додаю ім'я зі списку до рядка
+    if aub:  # Роблю перевірку на пусте значення
+        rec = Record(aub)  # Створюю об'єкт класу Record
         User_book.add_record(rec.dict_record())  # І записую в UserDict
-        print(f"Сontact '{u}' added")
+        print(f"Сontact '{aub}' added")
     else:
         print("!Add a username!")  # Виводжу попередження що ім'я не введене
 
@@ -30,12 +32,12 @@ def add_phone_to_user(args, User_book):
     Функція додавання до користувача телефону
     ([name, phone], dict)
     """
-    n, p = args  # Розбиваю список
+    n, phone = args  # Розбиваю список
     # Зберігаю завалідований номер телефону
-    p = Phone(p).phone_validation()
-    if p != None:  # Роблю перевірку на відсутність валідації
+    phone = Phone(phone).phone_validation()
+    if phone != None:  # Роблю перевірку на відсутність валідації
         # Оновлюю телефон користувача
-        User_book.update_user_contacts(n, {"phone": p})
+        User_book.update_user_contacts(n, {"phone": phone})
 
 
 def add_birthday_to_user(args, User_book):
@@ -73,10 +75,13 @@ def add_email_to_user(args, User_book: AddressBook):
         print("Enter the command correctly \n-> add-email [name] [Email]")
 
 
-# -------------------------------------
 def add_address_to_user(args, User_book: AddressBook):
-    n, adres = args
-    User_book.update_user_contacts(n, {"address": adres})
+    """ 
+    Функція додавання міста або країни до користувача
+    (['name', 'address'], dict)
+    """
+    na, adres = args
+    User_book.update_user_contacts(na, {"address": adres})
 
 
 def add_tag_to_user(args, User_book):
@@ -84,16 +89,24 @@ def add_tag_to_user(args, User_book):
     Функція додавання тегів до користувача
     (['name', 'tag'], dict)
     """
-    nn, tag = args  # Розбиваю список на змінні
-    User_book.add_data_to_users(nn, "tag", tag)  # Додаю тег до користувача
+    nu, tag = args  # Розбиваю список на змінні
+    User_book.add_data_to_users(nu, "tag", tag)  # Додаю тег до користувача
 
 
-def searth_teg_user(args, User_book):  # Функція пошуку користувача за тегом
-    tn = "".join(args)  # Додаю ім'я зі списку до рядка
-    User_book.find_tags_users("tag", tn)  # Шукаю тег
+def searth_teg_user(args, User_book):
+    """ 
+    Функція пошуку користувача за тегом
+    ("tag", dict)
+    """
+    stu = "".join(args)  # Додаю ім'я зі списку до рядка
+    User_book.find_tags_users("tag", stu)  # Шукаю тег
 
 
-def add_notes(args, User_book):  # Функція додавання нотаток до користувача з
+def add_notes(args, User_book):
+    """ 
+    Функція додавання нотаток до користувача
+    (['name', 'comment', 'note'], dict)
+    """
     try:
         u, com, nt = args  # Пробую розбити список
         # [com, nt] #Оновлюю нотатки користувача в словнику
@@ -104,7 +117,11 @@ def add_notes(args, User_book):  # Функція додавання нотат�
         print("Enter the command correctly \n-> note [name] [coment] [notes]")
 
 
-def view_note_user(namUser, User_book):  # Функція для перегляду нотаток користувача
+def view_note_user(namUser, User_book):
+    """ 
+    Функція для перегляду нотаток користувача
+    (['name'], dict)
+    """
     try:
         # Шукаю в книзі нотатки користувача
         dtUser = User_book.find_data_user("notes", namUser)
@@ -114,23 +131,29 @@ def view_note_user(namUser, User_book):  # Функція для перегля�
         print(f"User {namUser} note is missing")
 
 
-def remove_note_user(args, User_book):  # Функція видалення однієї нотатки в користувача
+def remove_note_user(args, User_book):
+    """ 
+    Функція видалення однієї нотатки в користувача
+    (['name', 'coment'], dict)
+    """
     try:
-        n, nd = args
-        User_book.delete_data_users(n, "notes", nd)
+        n, rnu = args
+        User_book.delete_data_users(n, "notes", rnu)
     except:
         print("Enter the command correctly \n-> remove-note [name] [coment]")
 
 
-# Функція видалення всіх нотаток в користувача
 def remove_user_notes_all(args, User_book):
-    rnu = "".join(args)  # Додаю ім'я зі списку до рядка
+    """ 
+    Функція видалення всіх нотаток в користувача
+    (['name'], dict)
+    """
+    run = "".join(args)  # Додаю ім'я зі списку до рядка
     # Видаляю нотатки користувача
-    User_book.delete_data_users(rnu, "notes", "all")
+    User_book.delete_data_users(run, "notes", "all")
 
 
-"""  і """
-lincFile = "addressbook.pkl"  # Посилання на файл (назва файлу)
+lincFile = "addressbook.pkl"  # Посилання на файл
 
 
 def save_data(book, filename):  # Функція збереження словника до файлу .pkl

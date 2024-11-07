@@ -1,9 +1,20 @@
-
-from packages import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
-
-# Імпортую свій файл з користувачами
+from bot_v2.modules.address_book import AddressBook
+from bot_v2.modules.basic_functions import lincFile
+from bot_v2.modules.basic_functions import load_data
+from bot_v2.modules.basic_functions import save_data
+from bot_v2.modules.basic_functions import all_book
+from bot_v2.modules.basic_functions import add_user_book
+from bot_v2.modules.basic_functions import add_phone_to_user
+from bot_v2.modules.basic_functions import add_birthday_to_user
+from bot_v2.modules.basic_functions import add_email_to_user
+from bot_v2.modules.basic_functions import add_address_to_user
+from bot_v2.modules.basic_functions import add_tag_to_user
+from bot_v2.modules.basic_functions import searth_teg_user
+from bot_v2.modules.basic_functions import add_notes
+from bot_v2.modules.basic_functions import view_note_user
+from bot_v2.modules.basic_functions import remove_note_user
+from bot_v2.modules.basic_functions import remove_user_notes_all
 from colorama import Fore
-# from BOT_V2 import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
 
 all_commands = \
     '''
@@ -83,7 +94,7 @@ def main():  # Основна функція з циклом
                 # Команда додавання користувача до AddressBook
                 case "add": add_user_book(args, book)
 
-                case "user": # Виводить дані заданого користувача
+                case "user":  # Виводить дані заданого користувача
                     u = "".join(args)  # Додаю ім'я зі списку до рядка
                     print(book.find(u))
 
@@ -107,21 +118,22 @@ def main():  # Основна функція з циклом
 
                 case "birthdays":  # Виводжу список користувачів, яких потрібно привітати на задану кількість днів
                     in_period = int(input('Input period to search: '))
-                    print("Dictionary with greetings: ", [book.find_birthday_users(in_period)])
-                    
+                    print("Dictionary with greetings: ", [
+                          book.find_birthday_users(in_period)])
 
                 case "add-email":  # Додаю пошту до користувача
                     add_email_to_user(args, book)
                 case "show-email":  # Виводжу почту користувача
                     uem = "".join(args)
                     book.find_contacts_user(uem, "email")
-                
-                case "add-addres": add_address_to_user(args, book) # Додаю адресу
-                case "show-addres":# Виводжу адресу користувача
+
+                # Додаю адресу
+                case "add-addres": add_address_to_user(args, book)
+                case "show-addres":  # Виводжу адресу користувача
                     nad = "".join(args)
                     book.find_contacts_user(nad, "address")
 
-                case "text-color": # Вибір коляру
+                case "text-color":  # Вибір коляру
                     if len(args) == 0:
                         color = default_color
                     else:
@@ -129,7 +141,7 @@ def main():  # Основна функція з циклом
                         if color is None:
                             color = default_color
                     print(color)
-                    
+
                 # Додаю адресу
                 case "add-addres": add_address_to_user(args, book)
                 case "show-addres":
@@ -156,7 +168,6 @@ def main():  # Основна функція з циклом
                 case "remove-notes-all":
                     remove_user_notes_all(args, book)
 
-
                 case "open-book":  # Команда для відкриття книги в ручну
                     # Додаю посилання на файл зі списку до рядка
                     lb = "".join(args)
@@ -166,7 +177,7 @@ def main():  # Основна функція з циклом
                 # Зберігаю в файл .pkl книгу з користувачами
                 case "save": save_data(book, lincFile)
 
-                case "close": break #Команда для закриття книги НЕ зберігає словник
+                case "close": break  # Команда для закриття книги НЕ зберігає словник
 
                 case "exit":  # Команда для закриття книги зберігає словник
                     # Зберігаю в файл .pkl книгу з користувачами
@@ -178,7 +189,8 @@ def main():  # Основна функція з циклом
                     print("Invalid command!!!")
 
         except:
-            print("Incorrect command... \nEnter 'help'")  # Якщо команда відсутня виводжу підказку
+            # Якщо команда відсутня виводжу підказку
+            print("Incorrect command... \nEnter 'help'")
 
 
 if __name__ == "__main__":

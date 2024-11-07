@@ -2,12 +2,21 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name="BOT_V2_main",
+    name="bot_v2",
     version="0.1",
-    packages=find_packages(),
+    description="Bot assistant",
+    author="Prolisok team",
+    author_email="alex.iesypenko@gmail.com",
+    # Указываем, что пакеты находятся в src/
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},              # Корневая директория пакета — src
+    install_requires=[
+        # Зависимости проекта
+    ],
     entry_points={
         "console_scripts": [
-            "BOT_V2_main=BOT_V2.main:main",
+            # Позволяет запускать `my_project` как команду
+            "bot_v2=bot_v2.main:main",
         ],
     },
 )
