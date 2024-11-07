@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Імпортую файл з користувачами
 # from BOT_V2 import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
 
@@ -5,6 +6,11 @@
 from packages import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
 
 
+=======
+# Імпортую свій файл з користувачами
+from colorama import Fore
+from BOT_V2 import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
+>>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
 
 all_commands = \
     '''
@@ -17,6 +23,7 @@ all_commands = \
  6 - "show-phone [ім'я]" -> Виводить номер телефону контакту
  7 - "add-birthday [ім'я] [дата народження]" -> Додаю до контакту день народження
  8 - "show-birthday [ім'я]" -> Показую день народження контакту
+<<<<<<< HEAD
  9 - "birthdays" -> Повертає список користувачів, яких потрібно привітати на задану кількість днів
  10 - "add-email [ім'я] [Email]" -> Команда додавання електронної пошти до користувача
  11 - "show-email [name]" -> Виводить Email
@@ -29,6 +36,20 @@ all_commands = \
  17 - "close" -> Закриває програму без збереження даних
  18 - "help" -> Виводить всі доступні команди
  19 - "save" -> Команда зберігання словника в файл .pkl
+=======
+ 9??? - "birthdays" -> Повертає список користувачів, яких потрібно привітати на задану кількість днів від введеної дати
+ 10 - "open-book [link to file]" -> Команда для відкриття файлу в ручну (якщо не вказати назву то поверне пустий словник)
+ 11 - "remove-user [ім'я]" -> Команда видалення користувача
+ 12 - "add-email [ім'я] [Email]" -> Команда додавання електронної пошти до користувача
+ 13 - "save" -> Команда зберігання словника в файл .pkl
+ 14 - "help" -> Виводить всі доступні команди 
+ 15 - "exit" -> Закриває програму із збереженням даних
+
+ 16 - "user [name]" -> Виводить дані користувача
+ 17 - "add-addres [name] [sity]" -> Додає адресу до користувача
+ 18 - "show-addres [name]" -> Виводить адресу до користувача
+ 19 - "text-color [color]" -> Вибирає коляр тексту
+>>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
 
 Команди для нотатків:
  1 - "note [name] [coment] [notes]" -> Додавання нотаток до користувача або редагую існуючі
@@ -52,8 +73,14 @@ def parse_input(user_input):  # Функція для парсингу кома�
     return cmd, *args  # Повертаю команду і аргументи
 
 
+<<<<<<< HEAD
 def main():  # Основна функція з запитом команд від користувача
     
+=======
+def main():  # Основна функція з циклом
+    default_color = Fore.RESET
+    color = default_color
+>>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
     book = AddressBook()  # Екземпляр класу AddressBook
 
     # Записую до книги декодовані дані з файлу
@@ -112,10 +139,24 @@ def main():  # Основна функція з запитом команд ві
                 case "show-email":  # Виводжу почту користувача
                     uem = "".join(args)
                     book.find_contacts_user(uem, "email")
+<<<<<<< HEAD
 
                 
                 case "add-addres": add_address_to_user(args, book) # Додаю адресу
                 case "show-addres":# Виводжу адресу користувача
+=======
+                case "text-color": # Вибір коляру
+                    if len(args) == 0:
+                        color = default_color
+                    else:
+                        color = Fore.__dict__.get(args[0].upper())
+                        if color is None:
+                            color = default_color
+                    print(color)
+                # -----------------------------------------
+                case "add-addres": add_address_to_user(args, book)
+                case "show-addres":
+>>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
                     nad = "".join(args)
                     book.find_contacts_user(nad, "address")
 
