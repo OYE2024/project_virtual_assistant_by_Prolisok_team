@@ -1,0 +1,2 @@
+[console_scripts]
+BOT_V2_main = BOT_V2.main:main

@@ -1,0 +1,15 @@
+README.md
+setup.py
+BOT_V2/__init__.py
+BOT_V2/main.py
+BOT_V2/packages/__init__.py
+BOT_V2/packages/module_clasess/Address_Book.py
+BOT_V2/packages/module_clasess/__init__.py
+BOT_V2/packages/module_clasess/address_book.py
+BOT_V2/packages/module_func/__init__.py
+BOT_V2/packages/module_func/basic_functions.py
+BOT_V2_main.egg-info/PKG-INFO
+BOT_V2_main.egg-info/SOURCES.txt
+BOT_V2_main.egg-info/dependency_links.txt
+BOT_V2_main.egg-info/entry_points.txt
+BOT_V2_main.egg-info/top_level.txt
