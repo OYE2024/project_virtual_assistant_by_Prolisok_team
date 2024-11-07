@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-# Імпортую файл з користувачами
-# from BOT_V2 import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
-
 
 from packages import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
 
-
-=======
 # Імпортую свій файл з користувачами
 from colorama import Fore
-from BOT_V2 import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
->>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
+# from BOT_V2 import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
 
 all_commands = \
     '''
@@ -23,7 +16,6 @@ all_commands = \
  6 - "show-phone [ім'я]" -> Виводить номер телефону контакту
  7 - "add-birthday [ім'я] [дата народження]" -> Додаю до контакту день народження
  8 - "show-birthday [ім'я]" -> Показую день народження контакту
-<<<<<<< HEAD
  9 - "birthdays" -> Повертає список користувачів, яких потрібно привітати на задану кількість днів
  10 - "add-email [ім'я] [Email]" -> Команда додавання електронної пошти до користувача
  11 - "show-email [name]" -> Виводить Email
@@ -73,14 +65,9 @@ def parse_input(user_input):  # Функція для парсингу кома�
     return cmd, *args  # Повертаю команду і аргументи
 
 
-<<<<<<< HEAD
-def main():  # Основна функція з запитом команд від користувача
-    
-=======
 def main():  # Основна функція з циклом
     default_color = Fore.RESET
     color = default_color
->>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
     book = AddressBook()  # Екземпляр класу AddressBook
 
     # Записую до книги декодовані дані з файлу
@@ -139,12 +126,12 @@ def main():  # Основна функція з циклом
                 case "show-email":  # Виводжу почту користувача
                     uem = "".join(args)
                     book.find_contacts_user(uem, "email")
-<<<<<<< HEAD
-
                 
                 case "add-addres": add_address_to_user(args, book) # Додаю адресу
                 case "show-addres":# Виводжу адресу користувача
-=======
+                    nad = "".join(args)
+                    book.find_contacts_user(nad, "address")
+
                 case "text-color": # Вибір коляру
                     if len(args) == 0:
                         color = default_color
@@ -156,7 +143,6 @@ def main():  # Основна функція з циклом
                 # -----------------------------------------
                 case "add-addres": add_address_to_user(args, book)
                 case "show-addres":
->>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
                     nad = "".join(args)
                     book.find_contacts_user(nad, "address")
 
