@@ -6,10 +6,9 @@ import re
 class AddressBook(UserDict):  # Клас для словника
 
     def add_record(self, data):  # Метод для додавання словника до self.data
-        """ 
-        Метод запису даних до UserDict
-        """
+        """ Метод запису даних до UserDict """
         super().update(data)  # Додаю словник через super
+
 
     def find(self, fName: str):  # Шукаю в словнику по імені
         """ 
@@ -24,6 +23,7 @@ class AddressBook(UserDict):  # Клас для словника
             # Повертаю попередження про відсутність користувача
             return f"User -{fName}- is missing"
 
+
     def delete(self, dName):  # Метод для видалення запису з словника
         """ 
         Метод для видалення користувача
@@ -34,6 +34,7 @@ class AddressBook(UserDict):  # Клас для словника
         except:
             # Виводжу попередження що користувач відсутній
             print("User is missing")
+
 
     def find_contacts_user(self, contName, contValue):
         """ 
@@ -53,10 +54,12 @@ class AddressBook(UserDict):  # Клас для словника
             print(f"User -{contName}- is missing")
 
 
-# Метод пошуку даних користувача в UserDict
-
 
     def find_data_user(self, findValue, findName=None):
+        """ 
+        Метод пошуку даних користувача в UserDict,
+        (val, name=None)
+        """
         if findName == None:  # Якщо немає імені то виводжу всі вкладені значення з даних користувача
 
             for vl in self.data:
@@ -75,10 +78,10 @@ class AddressBook(UserDict):  # Клас для словника
                 print(f"User -{findName}- is missing")
 
 
-# Метод пошуку тегів
-
-
     def find_tags_users(self, tagVal, tagNam):
+        """ 
+        Метод пошуку користувача за тегом
+        """
         for tg in self.data:  # Пробігаюсь циклом по словнику
             if self.data[tg].get(tagVal):  # Шукаю 'теги' в словниках користувачів
                 # Зберігаю знайдений тег з словника
@@ -87,10 +90,12 @@ class AddressBook(UserDict):  # Клас для словника
                     return print(dtu, tg)  # Виводжу результат пошуку за тегом
 
 
-# Метод додавання нових даних до користувача
-
 
     def add_data_to_users(self, dUser, newData, addNewData):
+        """ 
+        Метод додавання нових даних до словника користувача,
+        (user, key, val)
+        """
         # Роблю перевірку на співпадіння в поточному словнику користувачів UserDict
         if self.data.get(dUser):
             # Зберігаю словник користувача з UserDict
@@ -102,12 +107,12 @@ class AddressBook(UserDict):  # Клас для словника
             print("Data has been updated")
 
 
-# Метод для оновлення/додавання даних до користувача
-
-    # Оновлюю контактні дані користувача
-
 
     def update_user_contacts(self, uUser, uDat=None):
+        """ 
+        Метод для оновлення/додавання даних до користувача
+        (user, data: dict)
+        """
         # Зберігаю ключ з вхідного словника який добавлю в контакти до користувача
         uDatKeys = "".join(dict(uDat).keys())
         uDatValues = uDat[uDatKeys]  # Зберігаю значення з вхідного словника
@@ -159,12 +164,13 @@ class AddressBook(UserDict):  # Клас для словника
             return print(f"User '{uUser}' -> is missing")
 
 
-# Метод для оновлення/додавання нотаток користувача
-
-    # Приймає список [comentars , notate]
 
 
     def add_notes_to_users(self, nUser, notes):
+        """ 
+        Метод для оновлення/додавання нотаток користувача
+        Приймає список(user, [comentars , notate])
+        """
         comentars, notate = notes  # Розбиваю вхідний список на змінні
 
         # Роблю перевірку на співпадіння в поточному словнику користувачів UserDict
@@ -196,11 +202,12 @@ class AddressBook(UserDict):  # Клас для словника
             return print(f"User '{nUser}' -> is missing")
 
 
-# Метод видалення даних користувача
-
-    # Приймає ім'я, ключ для даних, дані(що видаляються)
 
     def delete_data_users(self, ddName, keyData, ddData=None):
+        """ 
+        Метод видалення даних користувача.
+        Приймає ім'я, ключ для даних, дані(що видаляються)
+        """
         # Роблю перевірку на співпадіння в поточному словнику користувачів UserDict
         if self.data.get(ddName):
             # Зберігаю словник з даними користувача
@@ -223,41 +230,39 @@ class AddressBook(UserDict):  # Клас для словника
             return print(f"User '{ddName}' -> is missing")
 
 
-# Метод для виведення днів народження на наступний тиждень (на задану кількість днів)
 
 
-    def find_birthday_users_for_week(self):  # birthdays
+    def find_birthday_users(self, period: int): # birthdays
+        """ 
+        Метод для виведення днів народження на задану кількість днів.
+        """
         try:
-            today_time = datetime.today().date()  # Зберігаю поточну дату
-            dict_res = {}  # Словник для результату пошуку
-
-            for ur in self.data:  # Проходжусь по словнику UserDict
-                # Зберігаю словник користувача
-                users_dicts = dict(self.data[ur])["contacts"]
-                # print(users_dicts)
-
-                # Роблю перевірку наявність дати народження
-                if users_dicts.get("birthday"):
-                    # Перетворюю ДН з словника в об'єкт datetime
-                    birtDT = datetime.strptime(
-                        users_dicts["birthday"], '%Y-%m-%d').date()
-                    # Замінюю рік з ДН на поточний
-                    repYear = birtDT.replace(year=today_time.year)
-
-                    # Віднімаю ДН від поточної дати і зберігаю як int
-                    res_bird = int((repYear - today_time).days)
-                    if res_bird <= 7 and res_bird >= 0:  # Перевіряю чи на цьому тижні ДН
-                        # Додаю до словника результатат перевірки
-                        dict_res.update({ur: birtDT.isoformat()})
-
-            return dict_res  # Повертаю словник з результатом пошуку
-
-        except:
-            # Виводжу повідомлення якщо є помилкова дата народження в словнику
-            print("Wrong date in the dictionary")
+            today_time = datetime.today().date() #Зберігаю поточну дату
+            dict_res = {} #Словник для результату пошуку
+            
+            for ur in self.data: #Проходжусь по словнику UserDict
+                users_dicts = dict(self.data[ur])["contacts"] #Зберігаю словник користувача
+                
+                if users_dicts.get("birthday"): #Роблю перевірку наявність дати народження
+                    birtDT = datetime.strptime(users_dicts["birthday"], '%Y-%m-%d').date() #Перетворюю ДН з словника в об'єкт datetime
+                    repYear = birtDT.replace(year=today_time.year) #Замінюю рік з ДН на поточний
+                    
+                    ###___________________________________???????????????
+                    res_bird = int(( repYear - today_time ).days) #Віднімаю ДН від поточної дати і зберігаю як int
+                    
+                    if res_bird < period and res_bird > 0: #Роблю перевірку по періоду
+                        dict_res.update({ur: birtDT.isoformat()}) #Додаю до словника результатат перевірки 
+                        
+            return dict_res #Повертаю словник з результатом пошуку
+        
+        except: print("Wrong date in the dictionary") #Виводжу повідомлення якщо є помилкова дата народження в словнику
 
 
-class Field():  # Базовий клас поля для контакту
+
+class Field():
+    """ 
+    Базовий клас для валідації даних про користувача
+    """
     def __init__(self, fd_Name, fd_Phone=None) -> None:
         self.fd_Name = fd_Name
         self.fd_Phone = fd_Phone
@@ -302,22 +307,21 @@ class Birthday(Field):  # Клас для дати народження
             raise ValueError("Invalid date format. Use DD.MM.YYYY")
 
 
-class Email(Field):  # Валідація пошти-----------------------------
+class Email(Field):  # Валідація пошти
     def __init__(self, valEmail):
         self.valEmail = valEmail
         print(self.valEmail)
 
-    def email_validation(self):
-        # --------------------------------
+    def email_validation(self): # Валідація Email
         email_regex = r'^[a-zA-Z0-9]{1}[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if re.match(email_regex, self.valEmail):
-            return self.valEmail  # Вертаю почту
+            return self.valEmail  # Вертаю пошту
         else:
             raise ValueError("Invalid Email")  # Вертаю помилку
 
 
-class Record:  # Шаблон користувача
 
+class Record:  # Шаблон користувача
     """Клас `Record` для зберігання інформації про контакт.
     Типу форма для словника.
     Можна вказати додаткові
