@@ -151,10 +151,7 @@ def remove_user_notes_all(args, User_book):
 
 
 
-
-"""  і """ #??????????
 lincFile = "addressbook.pkl"  # Посилання на файл
-
 
 def save_data(book, filename):  # Функція збереження словника до файлу .pkl
     """ 
