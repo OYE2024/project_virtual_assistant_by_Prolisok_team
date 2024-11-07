@@ -1,4 +1,5 @@
 # Імпортую свій файл з користувачами
+from colorama import Fore
 from BOT_V2 import AddressBook, lincFile, load_data, save_data, all_book, add_user_book, add_phone_to_user, add_birthday_to_user, add_email_to_user, add_address_to_user, add_tag_to_user, searth_teg_user, add_notes, view_note_user, remove_note_user, remove_user_notes_all
 
 all_commands = \
@@ -23,6 +24,7 @@ all_commands = \
  16 - "user [name]" -> Виводить дані користувача
  17 - "add-addres [name] [sity]" -> Додає адресу до користувача
  18 - "show-addres [name]" -> Виводить адресу до користувача
+ 19 - "text-color [color]" -> Вибирає коляр тексту
 
 Команди для нотатків:
  1 - "n [name] [coment] [notes]" -> Додавання нотаток до користувача або редагую існуючі
@@ -47,6 +49,8 @@ def parse_input(user_input):  # Функція для парсингу кома�
 
 
 def main():  # Основна функція з циклом
+    default_color = Fore.RESET
+    color = default_color
     book = AddressBook()  # Екземпляр класу AddressBook
 
     # Записую до книги декодовані дані з файлу
@@ -104,7 +108,14 @@ def main():  # Основна функція з циклом
                 case "show-email":  # Виводжу почту користувача
                     uem = "".join(args)
                     book.find_contacts_user(uem, "email")
-
+                case "text-color": # Вибір коляру
+                    if len(args) == 0:
+                        color = default_color
+                    else:
+                        color = Fore.__dict__.get(args[0].upper())
+                        if color is None:
+                            color = default_color
+                    print(color)
                 # -----------------------------------------
                 case "add-addres": add_address_to_user(args, book)
                 case "show-addres":
