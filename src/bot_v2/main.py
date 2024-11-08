@@ -1,5 +1,5 @@
 from bot_v2.modules.address_book import AddressBook
-from bot_v2.modules.basic_functions import lincFile
+# from bot_v2.modules.basic_functions import lincFile
 from bot_v2.modules.basic_functions import load_data
 from bot_v2.modules.basic_functions import save_data
 from bot_v2.modules.basic_functions import all_book
@@ -15,6 +15,7 @@ from bot_v2.modules.basic_functions import view_note_user
 from bot_v2.modules.basic_functions import remove_note_user
 from bot_v2.modules.basic_functions import remove_user_notes_all
 from colorama import Fore
+
 
 all_commands = \
     '''
@@ -41,7 +42,6 @@ all_commands = \
  19 - "save" -> Команда зберігання словника в файл .pkl
 
  20 - "text-color [color]" -> Вибирає коляр тексту
->>>>>>> c979a9cffbc5c3ef0bab7b043498c55c1382f8c5
 
 Команди для нотатків:
  1 - "note [name] [coment] [notes]" -> Додавання нотаток до користувача або редагую існуючі
@@ -57,9 +57,12 @@ all_commands = \
 
 
 """ Основний файл з циклом та парсингом команд"""
+lincFile = "addressbook.pkl"  # Посилання на файл
 
-
-def parse_input(user_input):  # Функція для парсингу команд
+def parse_input(user_input):
+    """ 
+    Функція для парсингу команд
+    """
     cmd, *args = user_input.split()  # Розбиваю команду
     cmd = cmd.strip().lower()  # Записую команду в окрему змінну
     return cmd, *args  # Повертаю команду і аргументи
