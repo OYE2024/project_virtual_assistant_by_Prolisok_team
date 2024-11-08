@@ -27,7 +27,7 @@ def add_user_book(addUser, User_book: AddressBook) -> str:
         print("!Add a username!")  # Виводжу попередження що ім'я не введене
 
 
-def add_phone_to_user(args, User_book: AddressBook):
+def add_phone_to_user(args, User_book):
     """ 
     Функція додавання до користувача телефону
     ([name, phone], dict)
@@ -40,7 +40,7 @@ def add_phone_to_user(args, User_book: AddressBook):
         User_book.update_user_contacts(n, {"phone": phone})
 
 
-def add_birthday_to_user(args, User_book: AddressBook):
+def add_birthday_to_user(args, User_book):
     """ 
     Функція додавання до користувача дня народження
     (['name', 'birthday'], dict)
@@ -84,7 +84,7 @@ def add_address_to_user(args, User_book: AddressBook):
     User_book.update_user_contacts(na, {"address": adres})
 
 
-def add_tag_to_user(args, User_book: AddressBook):
+def add_tag_to_user(args, User_book):
     """ 
     Функція додавання тегів до користувача
     (['name', 'tag'], dict)
@@ -93,7 +93,7 @@ def add_tag_to_user(args, User_book: AddressBook):
     User_book.add_data_to_users(nu, "tag", tag)  # Додаю тег до користувача
 
 
-def searth_teg_user(args, User_book: AddressBook):
+def searth_teg_user(args, User_book):
     """ 
     Функція пошуку користувача за тегом
     ("tag", dict)
@@ -102,7 +102,7 @@ def searth_teg_user(args, User_book: AddressBook):
     User_book.find_tags_users("tag", stu)  # Шукаю тег
 
 
-def add_notes(args, User_book: AddressBook):
+def add_notes(args, User_book):
     """ 
     Функція додавання нотаток до користувача
     (['name', 'comment', 'note'], dict)
@@ -117,7 +117,7 @@ def add_notes(args, User_book: AddressBook):
         print("Enter the command correctly \n-> note [name] [coment] [notes]")
 
 
-def view_note_user(namUser, User_book: AddressBook) -> str:
+def view_note_user(namUser, User_book):
     """ 
     Функція для перегляду нотаток користувача
     (['name'], dict)
@@ -131,7 +131,7 @@ def view_note_user(namUser, User_book: AddressBook) -> str:
         print(f"User {namUser} note is missing")
 
 
-def remove_note_user(args, User_book: AddressBook):
+def remove_note_user(args, User_book):
     """ 
     Функція видалення однієї нотатки в користувача
     (['name', 'coment'], dict)
@@ -143,7 +143,7 @@ def remove_note_user(args, User_book: AddressBook):
         print("Enter the command correctly \n-> remove-note [name] [coment]")
 
 
-def remove_user_notes_all(args, User_book: AddressBook):
+def remove_user_notes_all(args, User_book):
     """ 
     Функція видалення всіх нотаток в користувача
     (['name'], dict)
@@ -153,24 +153,22 @@ def remove_user_notes_all(args, User_book: AddressBook):
     User_book.delete_data_users(run, "notes", "all")
 
 
+lincFile = "addressbook.pkl"  # Посилання на файл
 
 
-def save_data(book: AddressBook, filename: str):  # Функція збереження словника до файлу .pkl
+def save_data(book, filename):  # Функція збереження словника до файлу .pkl
     """ 
-    Функція збереження словника до файлу .pkl \n
-    `book` - приймає словник який потрібно зберегти \n
-    `filename`  - назва файлу
+    Функція збереження даних в файл .pkl
     """
     with open(filename, "wb") as f:  # Відкриваю файл
         pickle.dump(book, f)  # Створюю новий файл або переписую існуючий
         print("Book is saved")
 
 
-def load_data(filename: str) -> dict:  # Функція зчитування файлу .pkl
+def load_data(filename):  # Функція зчитування файлу .pkl
     """ 
     Функція відкриття файлу .pkl -> 
-    повертає зчитаний файл, або екземпляр класу Address_Book \n
-    `filename`  - назва файлу
+    повертає зчитаний файл, або екземпляр класу Address_Book
     """
     try:
         with open(filename, "rb") as f:  # Пробую відкрити файл
