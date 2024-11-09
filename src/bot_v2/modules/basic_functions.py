@@ -8,15 +8,19 @@ from bot_v2.modules.address_book import Email
 
 def all_book(User_book: AddressBook) -> str:
     """
-    Функція виведення контактів, читає всю книгу контактів
+    Функція виведення контактів, читає всю книгу контактів. \n
+    `User_book` - книга контактів
     """
     for b in User_book.data:
         print(b, User_book[b])
 
 
-def add_user_book(addUser, User_book: AddressBook) -> str:
+def add_user_book(addUser: str, User_book: AddressBook) -> str:
     """
-    Функція додавання користувача до Address_Book
+    Функція додавання користувача до Address_Book:
+    (name, dict) \n
+    `addUser` - ім'я користувача \n
+    `User_book` - книга контактів
     """
     aub = "".join(addUser)  # Додаю ім'я зі списку до рядка
     if aub:  # Роблю перевірку на пусте значення
@@ -27,10 +31,12 @@ def add_user_book(addUser, User_book: AddressBook) -> str:
         print("!Add a username!")  # Виводжу попередження що ім'я не введене
 
 
-def add_phone_to_user(args, User_book: AddressBook):
+def add_phone_to_user(args: list, User_book: AddressBook):
     """ 
-    Функція додавання до користувача телефону
-    ([name, phone], dict)
+    Функція додавання до користувача телефону:
+    ([name, phone], dict) \n
+    `User_book` - книга контактів \n
+    `args` - список параметрів(ім'я, телефон)
     """
     n, phone = args  # Розбиваю список
     # Зберігаю завалідований номер телефону
@@ -40,10 +46,12 @@ def add_phone_to_user(args, User_book: AddressBook):
         User_book.update_user_contacts(n, {"phone": phone})
 
 
-def add_birthday_to_user(args, User_book: AddressBook):
+def add_birthday_to_user(args: list, User_book: AddressBook):
     """ 
-    Функція додавання до користувача дня народження
-    (['name', 'birthday'], dict)
+    Функція додавання до користувача дня народження:
+    (['name', 'birthday'], dict) \n
+    `User_book` - книга контактів \n
+    `args` - список параметрів(ім'я, день-народження)
     """
     try:
         n, birthday = args  # Пробую розбити список
@@ -58,10 +66,12 @@ def add_birthday_to_user(args, User_book: AddressBook):
             "Enter the command correctly \n-> add-birthday [name] [DD.MM.YYYY]")
 
 
-def add_email_to_user(args, User_book: AddressBook):
+def add_email_to_user(args: list, User_book: AddressBook):
     """ 
-    Функція додавання Email
-    (['name', 'email'], dict)
+    Функція додавання Email до користувача:
+    (['name', 'email'], dict) \n
+    `User_book` - книга контактів \n
+    `args` - список параметрів(ім'я, ел-почта)
     """
     try:
         n, email = args  # Пробую розбити список
@@ -75,37 +85,45 @@ def add_email_to_user(args, User_book: AddressBook):
         print("Enter the command correctly \n-> add-email [name] [Email]")
 
 
-def add_address_to_user(args, User_book: AddressBook):
+def add_address_to_user(args: list, User_book: AddressBook):
     """ 
-    Функція додавання міста або країни до користувача
-    (['name', 'address'], dict)
+    Функція додавання міста або країни до користувача:
+    (['name', 'address'], dict) \n
+    `User_book` - книга контактів \n
+    `args` - список параметрів(ім'я, адреса)
     """
     na, adres = args
     User_book.update_user_contacts(na, {"address": adres})
 
 
-def add_tag_to_user(args, User_book: AddressBook):
+def add_tag_to_user(args: list, User_book: AddressBook):
     """ 
-    Функція додавання тегів до користувача
-    (['name', 'tag'], dict)
+    Функція додавання тегів до користувача:
+    (['name', 'tag'], dict) \n
+    `User_book` - книга контактів \n
+    `args` - список параметрів(ім'я, тег)
     """
     nu, tag = args  # Розбиваю список на змінні
     User_book.add_data_to_users(nu, "tag", tag)  # Додаю тег до користувача
 
 
-def searth_teg_user(args, User_book: AddressBook):
+def searth_teg_user(args: list, User_book: AddressBook):
     """ 
-    Функція пошуку користувача за тегом
-    ("tag", dict)
+    Функція пошуку користувача за тегом:
+    ("tag", dict) \n
+    `User_book` - книга контактів \n
+    `args` - тег за яким шукати користувача
     """
     stu = "".join(args)  # Додаю ім'я зі списку до рядка
     User_book.find_tags_users("tag", stu)  # Шукаю тег
 
 
-def add_notes(args, User_book: AddressBook):
+def add_notes(args: list, User_book: AddressBook):
     """ 
-    Функція додавання нотаток до користувача
-    (['name', 'comment', 'note'], dict)
+    Функція додавання нотаток до користувача:
+    (['name', 'comment', 'note'], dict) \n
+    `User_book` - книга контактів \n
+    `args` - список параметрів(ім'я, коментар, нотатка)
     """
     try:
         u, com, nt = args  # Пробую розбити список
@@ -117,10 +135,12 @@ def add_notes(args, User_book: AddressBook):
         print("Enter the command correctly \n-> note [name] [coment] [notes]")
 
 
-def view_note_user(namUser, User_book: AddressBook) -> str:
+def view_note_user(namUser: str, User_book: AddressBook) -> str:
     """ 
-    Функція для перегляду нотаток користувача
-    (['name'], dict)
+    Функція для перегляду нотаток користувача:
+    (['name'], dict) \n
+    `User_book` - книга контактів \n
+    `namUser` - ім'я користувача для пошуку нотаток
     """
     try:
         # Шукаю в книзі нотатки користувача
@@ -131,10 +151,12 @@ def view_note_user(namUser, User_book: AddressBook) -> str:
         print(f"User {namUser} note is missing")
 
 
-def remove_note_user(args, User_book: AddressBook):
+def remove_note_user(args: list, User_book: AddressBook):
     """ 
-    Функція видалення однієї нотатки в користувача
-    (['name', 'coment'], dict)
+    Функція видалення однієї нотатки в користувача:
+    (['name', 'coment'], dict) \n
+    `User_book` - книга контактів \n
+    `args` - список параметрів(ім'я, коментар)
     """
     try:
         n, rnu = args
@@ -143,10 +165,12 @@ def remove_note_user(args, User_book: AddressBook):
         print("Enter the command correctly \n-> remove-note [name] [coment]")
 
 
-def remove_user_notes_all(args, User_book: AddressBook):
+def remove_user_notes_all(args: list, User_book: AddressBook):
     """ 
-    Функція видалення всіх нотаток в користувача
-    (['name'], dict)
+    Функція видалення всіх нотаток в користувача:
+    (['name'], dict) \n
+    `User_book` - книга контактів \n
+    `args` - приймає ім'я контакту який потрібно видалити
     """
     run = "".join(args)  # Додаю ім'я зі списку до рядка
     # Видаляю нотатки користувача
@@ -157,7 +181,8 @@ def remove_user_notes_all(args, User_book: AddressBook):
 
 def save_data(book: AddressBook, filename: str):  # Функція збереження словника до файлу .pkl
     """ 
-    Функція збереження словника до файлу .pkl \n
+    Функція збереження словника до файлу .pkl : 
+    (book, filename) \n
     `book` - приймає словник який потрібно зберегти \n
     `filename`  - назва файлу
     """
@@ -168,8 +193,9 @@ def save_data(book: AddressBook, filename: str):  # Функція збереж�
 
 def load_data(filename: str) -> dict:  # Функція зчитування файлу .pkl
     """ 
-    Функція відкриття файлу .pkl -> 
-    повертає зчитаний файл, або екземпляр класу Address_Book \n
+    Функція відкриття файлу .pkl :
+    (filename).  \n
+    Повертає зчитаний файл, або екземпляр класу Address_Book \n
     `filename`  - назва файлу
     """
     try:

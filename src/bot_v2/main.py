@@ -1,5 +1,4 @@
 from bot_v2.modules.address_book import AddressBook
-# from bot_v2.modules.basic_functions import lincFile
 from bot_v2.modules.basic_functions import load_data
 from bot_v2.modules.basic_functions import save_data
 from bot_v2.modules.basic_functions import all_book
@@ -34,7 +33,7 @@ all_commands = \
  12 - "add-addres [name] [sity]" -> Додає адресу до користувача
  13 - "show-addres [name]" -> Виводить адресу до користувача
  14 - "remove-user [ім'я]" -> Команда видалення користувача
- 
+
  15 - "open-book [link to file]" -> Команда для відкриття файлу в ручну (якщо не вказати назву то поверне пустий словник)
  16 - "exit" -> Закриває програму із збереженням даних
  17 - "close" -> Закриває програму без збереження даних
