@@ -3,30 +3,38 @@ from collections import UserDict
 import re
 
 
-class AddressBook(UserDict):  # Клас для словника
+class AddressBook(UserDict):
 
-    def add_record(self, data):  # Метод для додавання словника до self.data
-        """ Метод запису даних до UserDict """
+    def add_record(self, data: dict):  # Метод для додавання словника до self.data
+        """
+        Метод запису даних до UserDict \n
+        Приймає словник з данини про користувачів. \n
+        `data` - словник з даними
+        """
         super().update(data)  # Додаю словник через super
 
 
-    def find(self, fName: str):  # Шукаю в словнику по імені
+    def find(self, fName: str) -> dict:  # Шукаю в словнику по імені
         """ 
-        Метод для пошуку користувача в словнику,
-        повертає словник
+        Метод для пошуку користувача в словнику, \n
+        повертає словник з даними про користувача. \n
+        `fName` - ім'я користувача для пошуку
         """
-        result = {}
+        result = {} # Для результату
         try:
-            result.update({fName: self.data[fName]})
+            #Пробую записати в словник дані знайденого користувача
+            result.update({fName: self.data[fName]}) 
             return result  # Повертаю результат
         except:
             # Повертаю попередження про відсутність користувача
             return f"User -{fName}- is missing"
 
 
-    def delete(self, dName):  # Метод для видалення запису з словника
+    def delete(self, dName: str):  # Метод для видалення запису з словника
         """ 
-        Метод для видалення користувача
+        Метод для видалення користувача. \n
+        Видаляє заданого користувача з словника, разом з даними \n
+        `dName` - ім'я користувача для видалення
         """
         try:  # Перевіряю на наявність користувача
             self.data.pop(dName)  # Видаляю користувача
@@ -36,18 +44,21 @@ class AddressBook(UserDict):  # Клас для словника
             print("User is missing")
 
 
-    def find_contacts_user(self, contName, contValue):
+    def find_contacts_user(self, contName: str, contKey: str) -> str:
         """ 
-        Метод пошуку контактних даних користувачів
+        Метод пошуку контактних даних користувачів, \n
+        шукає за ключем "contacts" в словнику контакта \n
+        `contName` - ім'я користувача \n
+        `contKey` - ключ контактних даних користувача
         """
         if self.data.get(str(contName)):  # Роблю перевірку на співпадіння в поточному словнику користувачів UserDict
             try:
                 # Зберігаю словник користувача з UserDict і витягую з словника значення по ключу
                 userData = dict(self.data[contName])["contacts"]
                 # Повертаю результат пошуку через прінт
-                return print(userData[contValue])
+                return print(userData[contKey])
             except:
-                print(f"There is no contact-> {contValue}")
+                print(f"There is no contact-> {contKey}")
 
         else:
             # Повертаю попередження про відсутність користувача
@@ -55,22 +66,25 @@ class AddressBook(UserDict):  # Клас для словника
 
 
 
-    def find_data_user(self, findValue, findName=None):
+    def find_data_user(self, findKey: str, findName=None) -> dict:
         """ 
-        Метод пошуку даних користувача в UserDict,
-        (val, name=None)
+        Метод пошуку даних користувача. \n
+        Якщо вказати іч'я то виводить словник з даними про користувача. \n
+        Якщо не вказувати ім'я користувача то виведе всі значення з даних кожного користувача. \n
+        `findKey` - ключ за яким треба шукати \n
+        `findName: str` - ім'я за яким треба шукати (не обов'язково)
         """
         if findName == None:  # Якщо немає імені то виводжу всі вкладені значення з даних користувача
 
             for vl in self.data:
                 # Виводжу всі значення з даних кожного користувача
-                print(vl, self.data[vl][findValue])
+                print(vl, self.data[vl][findKey])
 
         else:  # Якщо є вхідне ім'я користувача то шукаю дані користувача
             # Роблю перевірку на співпадіння в поточному словнику користувачів UserDict
             if self.data.get(str(findName)):
                 # Зберігаю словник користувача з UserDict і витягую з словника значення по ключу
-                userData = dict(self.data[findName])[findValue]
+                userData = dict(self.data[findName])[findKey]
                 return userData  # Повертаю словник з даними користувача
 
             else:
@@ -78,40 +92,50 @@ class AddressBook(UserDict):  # Клас для словника
                 print(f"User -{findName}- is missing")
 
 
-    def find_tags_users(self, tagVal, tagNam):
+    def find_tags_users(self, tagKey: str, tagNam: str) -> str:
         """ 
-        Метод пошуку користувача за тегом
+        Метод пошуку користувача за тегом. \n
+        Якщо є вказане ім'я тега, то повертає ім'я користувача \n
+        `tagKey` - ключ тега\n
+        `tagNam` - тег
         """
         for tg in self.data:  # Пробігаюсь циклом по словнику
-            if self.data[tg].get(tagVal):  # Шукаю 'теги' в словниках користувачів
+            if self.data[tg].get(tagKey):  # Шукаю 'теги' в словниках користувачів
                 # Зберігаю знайдений тег з словника
-                dtu = str(dict(self.data[tg])[tagVal])
+                dtu = str(dict(self.data[tg])[tagKey])
                 if tagNam == dtu:  # Роблю перевірку за тегом
                     return print(dtu, tg)  # Виводжу результат пошуку за тегом
 
 
 
-    def add_data_to_users(self, dUser, newData, addNewData):
+    def add_data_to_users(self, dUser: str, newKey: str, newData: str):
         """ 
         Метод додавання нових даних до словника користувача,
-        (user, key, val)
+        (user, key, val). \n
+        Приймає ім'я користувача, ключ і значання для додавання до користувача, \n
+        формує і записує словник до користувача. \n
+        `dUser` - ім'я користувача \n
+        `newKey` - новий ключ для користувача \n
+        `newData` - нові дані користувача
         """
         # Роблю перевірку на співпадіння в поточному словнику користувачів UserDict
         if self.data.get(dUser):
             # Зберігаю словник користувача з UserDict
             userData = dict(self.data[dUser])
             # Оновлюю словник користувача <- вхідним словником
-            userData.update({newData: addNewData})
+            userData.update({newKey: newData})
             # Оновлюю словник користувача в UserDict
             super().update({dUser: userData})
             print("Data has been updated")
 
 
 
-    def update_user_contacts(self, uUser, uDat=None):
+    def update_user_contacts(self, uUser: str, uDat: dict):
         """ 
-        Метод для оновлення/додавання даних до користувача
-        (user, data: dict)
+        Метод для оновлення/додавання даних до користувача:
+        (user, data: dict) \n
+        `uUser` - ім'я користувача \n 
+        `uDat` - словник з даними які потрібно додати до користувача
         """
         # Зберігаю ключ з вхідного словника який добавлю в контакти до користувача
         uDatKeys = "".join(dict(uDat).keys())
@@ -164,12 +188,12 @@ class AddressBook(UserDict):  # Клас для словника
             return print(f"User '{uUser}' -> is missing")
 
 
-
-
-    def add_notes_to_users(self, nUser, notes):
+    def add_notes_to_users(self, nUser: str, notes: list):
         """ 
-        Метод для оновлення/додавання нотаток користувача
-        Приймає список(user, [comentars , notate])
+        Метод для оновлення/додавання нотаток до користувача, \n
+        приймає ім'я та список `notes` - з коментарем та нотаткою. \n
+        `nUser` - ім'я користувача \n
+        `notes` - [кометар , нотатка]
         """
         comentars, notate = notes  # Розбиваю вхідний список на змінні
 
@@ -203,27 +227,30 @@ class AddressBook(UserDict):  # Клас для словника
 
 
 
-    def delete_data_users(self, ddName, keyData, ddData=None):
+    def delete_data_users(self, ddName: str, keyData: str, allData=None):
         """ 
-        Метод видалення даних користувача.
-        Приймає ім'я, ключ для даних, дані(що видаляються)
+        Метод видалення даних користувача. \n
+        Приймає ім'я, ключ для даних, дані(що видаляються). \n
+        `ddName` - ім'я користувача \n
+        `keyData` - ключ даних що потрібно видалити \n
+        `allData` - додаткова команда для видалення всіх даних в користувача
         """
         # Роблю перевірку на співпадіння в поточному словнику користувачів UserDict
         if self.data.get(ddName):
             # Зберігаю словник з даними користувача
             dataUser = dict(self.data[ddName])
-            if ddData == "all":  # Команда для видалення всіх нотаток
+            if allData == "all":  # Команда для видалення всіх нотаток
                 print(dataUser.pop(keyData))  # Видаляю словник з нотатками
                 # Оновлюю користувача в UserDict
                 super().update({ddName: dataUser})
             else:
                 try:
                     # Видаляю дані користувача
-                    print("delet->", ddData, "-",
-                          dataUser[keyData].pop(ddData))
+                    print("delet->", allData, "-",
+                          dataUser[keyData].pop(allData))
                 except:
                     # Попередження про відсутність нотатки в користувача
-                    return print(f"User {ddName} note is missing")
+                    print(f"User {ddName} note is missing")
 
         else:
             # Якщо користувача не знайдено
@@ -231,10 +258,11 @@ class AddressBook(UserDict):  # Клас для словника
 
 
 
-
-    def find_birthday_users(self, period: int): # birthdays
+    def find_birthday_users(self, period: int) -> dict: # birthdays
         """ 
-        Метод для виведення днів народження на задану кількість днів.
+        Метод для виведення днів народження на задану кількість днів. \n
+        Повертає словник з користувачами і датами народження \n
+        `period` - період 
         """
         try:
             today_time = datetime.today().date() #Зберігаю поточну дату
@@ -256,6 +284,8 @@ class AddressBook(UserDict):  # Клас для словника
             return dict_res #Повертаю словник з результатом пошуку
         
         except: print("Wrong date in the dictionary") #Виводжу повідомлення якщо є помилкова дата народження в словнику
+
+
 
 
 
@@ -335,7 +365,11 @@ class Record:  # Шаблон користувача
         self.birthday = None  # День народження
         self.dictREC = {}  # Вихідний словник
 
-    def dict_record(self):  # Метод для створення словника
+    def dict_record(self) -> dict:  # Метод для створення словника
+        """ 
+        Метод для створення шаблону словника з нотатками та контактами користувача. \n
+        Повертає словник з користувачем { User: { data... } }
+        """
         self.dictREC = {self.name: {  # Записую в словник
             "contacts": {
                 "phone": [self.phones],
