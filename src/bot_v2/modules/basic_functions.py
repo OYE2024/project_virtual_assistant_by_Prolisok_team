@@ -31,7 +31,6 @@ def add_user_book(addUser: str, User_book: AddressBook) -> str:
         print("!Add a username!")  # Виводжу попередження що ім'я не введене
 
 
-def add_phone_to_user(args, User_book: AddressBook):
 def add_phone_to_user(args: list, User_book: AddressBook):
     """ 
     Функція додавання до користувача телефону:
@@ -47,7 +46,6 @@ def add_phone_to_user(args: list, User_book: AddressBook):
         User_book.update_user_contacts(n, {"phone": phone})
 
 
-def add_birthday_to_user(args, User_book: AddressBook):
 def add_birthday_to_user(args: list, User_book: AddressBook):
     """ 
     Функція додавання до користувача дня народження:
@@ -98,7 +96,7 @@ def add_address_to_user(args: list, User_book: AddressBook):
     User_book.update_user_contacts(na, {"address": adres})
 
 
-def add_tag_to_user(args, User_book: AddressBook):
+
 def add_tag_to_user(args: list, User_book: AddressBook):
     """ 
     Функція додавання тегів до користувача:
@@ -110,7 +108,7 @@ def add_tag_to_user(args: list, User_book: AddressBook):
     User_book.add_data_to_users(nu, "tag", tag)  # Додаю тег до користувача
 
 
-def searth_teg_user(args, User_book: AddressBook):
+
 def searth_teg_user(args: list, User_book: AddressBook):
     """ 
     Функція пошуку користувача за тегом:
@@ -122,7 +120,7 @@ def searth_teg_user(args: list, User_book: AddressBook):
     User_book.find_tags_users("tag", stu)  # Шукаю тег
 
 
-def add_notes(args, User_book: AddressBook):
+
 def add_notes(args: list, User_book: AddressBook):
     """ 
     Функція додавання нотаток до користувача:
@@ -140,7 +138,7 @@ def add_notes(args: list, User_book: AddressBook):
         print("Enter the command correctly \n-> note [name] [coment] [notes]")
 
 
-def view_note_user(namUser, User_book: AddressBook) -> str:
+
 def view_note_user(namUser: str, User_book: AddressBook) -> str:
     """ 
     Функція для перегляду нотаток користувача:
@@ -157,7 +155,7 @@ def view_note_user(namUser: str, User_book: AddressBook) -> str:
         print(f"User {namUser} note is missing")
 
 
-def remove_note_user(args, User_book: AddressBook):
+
 def remove_note_user(args: list, User_book: AddressBook):
     """ 
     Функція видалення однієї нотатки в користувача:
@@ -172,7 +170,7 @@ def remove_note_user(args: list, User_book: AddressBook):
         print("Enter the command correctly \n-> remove-note [name] [coment]")
 
 
-def remove_user_notes_all(args, User_book: AddressBook):
+
 def remove_user_notes_all(args: list, User_book: AddressBook):
     """ 
     Функція видалення всіх нотаток в користувача:
@@ -188,7 +186,6 @@ def remove_user_notes_all(args: list, User_book: AddressBook):
 
 
 def save_data(book: AddressBook, filename: str):  # Функція збереження словника до файлу .pkl
-def save_data(book: AddressBook, filename: str):  # Функція збереження словника до файлу .pkl
     """ 
     Функція збереження словника до файлу .pkl : 
     (book, filename) \n
@@ -200,7 +197,6 @@ def save_data(book: AddressBook, filename: str):  # Функція збереж�
         print("Book is saved")
 
 
-def load_data(filename: str) -> dict:  # Функція зчитування файлу .pkl
 def load_data(filename: str) -> dict:  # Функція зчитування файлу .pkl
     """ 
     Функція відкриття файлу .pkl :
